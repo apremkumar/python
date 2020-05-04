@@ -53,22 +53,33 @@ def denominationToWords(number):
 
 def hundredsWord(number, denomCounter=0):
     quotient = number % 1000
+    hundredth = (numberToWords(quotient // 100) +
+                 " hundred ") if quotient > 99 else ""
     tenth = multiplesOfTen(quotient % 100) if (quotient %
                                                100) > 9 else numberToWords(quotient % 100)
-    word = (numberToWords(quotient // 100) +
-            " hundred ") if quotient > 99 else ""
-    word += (("and " if denomCounter == 0 else "") +
-             tenth) if tenth != "" else ""
+    word = hundredth
+    word += ("and " if denomCounter == 0 and hundredth !=
+             "" and tenth != "" else "")
+    word += tenth if tenth != "" else ""
+    # ("and " if denomCounter == 0 else "") +
     return (hundredsWord(number // 1000, (denomCounter + 1)) + " " if number//1000 > 0 else "") + word + " " + (denominationToWords(denomCounter) if quotient > 0 else "")
 
 
-print("*"*20)
+print(hundredsWord(100000000000000000000000000000))
+print("*"*40)
 print(hundredsWord(2912345675))
-print("*"*20)
-print(hundredsWord(10956501))
-print("*"*20)
+print("*"*40)
 print(hundredsWord(1000000000))
-print("*"*20)
-print(hundredsWord(100))
-print("*"*20)
+print("*"*40)
+print(hundredsWord(10956501))
+print("*"*40)
 print(hundredsWord(101))
+print("*"*40)
+print(hundredsWord(100))
+print("*"*40)
+print(hundredsWord(27))
+print("*"*40)
+print(hundredsWord(10))
+print("*"*40)
+print(hundredsWord(1))
+print("*"*40)
